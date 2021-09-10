@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
+import {Counter} from "views/components/Counter";
+import {Hello} from "views/components/Hello";
 
 
 const INITIAL_COUNT = 0
 const INITIAL_NAME = "JavaScript"
 
-const SampleComponent = () => {
+function App() {
     const [count, setCount] = useState(INITIAL_COUNT)
     const [name, setName] = useState(INITIAL_NAME)
     const countIncrement = () => setCount((prevCount) => prevCount + 1)
@@ -16,31 +18,21 @@ const SampleComponent = () => {
     }
 
     return (
-        <div className="App">
-            <p>
-                現在のカウント: <b>{count}</b>
-                <br />
-                count の初期値: <b>{INITIAL_COUNT}</b>
-                <button onClick={countIncrement}>increment</button>
-                <button onClick={countDecrement}>decrement</button>
-                <button onClick={countReset}>reset</button>
-            </p>
-            <p>
-                Hello, <b>{name}</b> !!
-                <br />
-                name の初期値: <b>{INITIAL_NAME}</b>
-            </p>
-
-            <input type="text" onChange={handleChangeName} />
-        </div>
-    )
-}
-
-function App() {
-    return (
         <>
-            <SampleComponent />
-            <SampleComponent />
+            <div className="App">
+                <Counter
+                    count={count}
+                    countIncrement={countIncrement}
+                    countDecrement={countDecrement}
+                    countReset={countReset}
+                    initialCount={INITIAL_COUNT}
+                />
+                <Hello
+                    name={name}
+                    initialName={INITIAL_NAME}
+                    handleChangeName={handleChangeName}
+                />
+            </div>
         </>
     )
 }
