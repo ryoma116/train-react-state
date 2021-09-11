@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Counter} from "views/components/Counter";
 import {Hello} from "views/components/Hello";
 
@@ -12,6 +12,11 @@ function App() {
     const countIncrement = () => setCount((prevCount) => prevCount + 1)
     const countDecrement = () => setCount((prevCount) => prevCount - 1)
     const countReset = () => setCount(INITIAL_COUNT)
+
+    const callbackFunc = () => {
+        document.title = `[${name}] ${count} 回クリックされました`
+    }
+    useEffect(callbackFunc, [count, name])
 
     const handleChangeName = (e: any) => {
         setName(e.target.value)
