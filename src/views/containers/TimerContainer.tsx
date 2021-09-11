@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { RouteComponentProps } from '@reach/router'
+import {Counter} from "views/components/Counter";
 
 const INITIAL_COUNT = 0
 
@@ -8,6 +9,10 @@ const Timer = (props: RouteComponentProps) => {
     const countIncrement = () => {
         setCount((prevCount) => prevCount + 1)
         console.log('count up +1')
+    }
+    const countDecrement = () => {
+        setCount((prevCount) => prevCount - 1)
+        console.log('count up -1')
     }
     const countReset = () => setCount(INITIAL_COUNT)
 
@@ -22,10 +27,13 @@ const Timer = (props: RouteComponentProps) => {
     useEffect(callbackFunc, [])
 
     return (
-        <div className="App">
-            <p>現在のカウント数: {count}</p>
-            <button onClick={countReset}>RESET</button>
-        </div>
+        <Counter
+            count={count}
+            countIncrement={countIncrement}
+            countDecrement={countDecrement}
+            countReset={countReset}
+            initialCount={INITIAL_COUNT}
+        />
     )
 }
 
