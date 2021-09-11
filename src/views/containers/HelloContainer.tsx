@@ -3,18 +3,22 @@ import { RouteComponentProps } from '@reach/router'
 
 import {Counter} from "views/components/Counter";
 import {Hello} from "views/components/Hello";
+import {useDispatch, useSelector} from "react-redux";
+import actions from "state/ducks/counter/actions";
+import {getCount} from "state/ducks/counter/selectors";
 
 
 const INITIAL_COUNT = 0
 const INITIAL_NAME = "JavaScript"
 
 const HelloContainer = (props: RouteComponentProps) => {
-    const [count, setCount] = useState(INITIAL_COUNT)
-    const [name, setName] = useState(INITIAL_NAME)
-    const countIncrement = () => setCount((prevCount) => prevCount + 1)
-    const countDecrement = () => setCount((prevCount) => prevCount - 1)
-    const countReset = () => setCount(INITIAL_COUNT)
+    const count = useSelector(getCount)
+    const dispatch = useDispatch();
+    const countIncrement = () => dispatch(actions.increment())
+    const countDecrement = () => dispatch(actions.decrement())
+    const countReset = () => dispatch(actions.decrement())
 
+    const [name, setName] = useState(INITIAL_NAME)
     const callbackFunc = () => {
         document.title = `[${name}] ${count} 回クリックされました`
     }

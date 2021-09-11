@@ -1,20 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import { RouteComponentProps } from '@reach/router'
 import {Counter} from "views/components/Counter";
+import {useDispatch, useSelector} from "react-redux";
+import {getCount} from "../../state/ducks/counter/selectors";
+import actions from "../../state/ducks/counter/actions";
 
 const INITIAL_COUNT = 0
 
 const Timer = (props: RouteComponentProps) => {
-    const [count, setCount] = useState(INITIAL_COUNT)
-    const countIncrement = () => {
-        setCount((prevCount) => prevCount + 1)
-        console.log('count up +1')
-    }
-    const countDecrement = () => {
-        setCount((prevCount) => prevCount - 1)
-        console.log('count up -1')
-    }
-    const countReset = () => setCount(INITIAL_COUNT)
+    const count = useSelector(getCount)
+    const dispatch = useDispatch();
+    const countIncrement = () => dispatch(actions.increment())
+    const countDecrement = () => dispatch(actions.decrement())
+    const countReset = () => dispatch(actions.reset())
 
     const callbackFunc = () => {
         alert('Start effect!')
